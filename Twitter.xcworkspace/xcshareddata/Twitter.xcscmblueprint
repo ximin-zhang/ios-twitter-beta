@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B2F34F8843926ADC8BB5555B36D246A777AC9489",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E347FE568902197079700D971CB08D7E87306E3B" : 0,
+    "B2F34F8843926ADC8BB5555B36D246A777AC9489" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "D04A3527-AB78-46BB-875A-EAA3472611F5",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E347FE568902197079700D971CB08D7E87306E3B" : "..",
+    "B2F34F8843926ADC8BB5555B36D246A777AC9489" : "Twitter\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Twitter",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Twitter.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:ximin-zhang\/ios-twitter.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B2F34F8843926ADC8BB5555B36D246A777AC9489"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ximin-zhang\/ios-flicks",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E347FE568902197079700D971CB08D7E87306E3B"
+    }
+  ]
+}
