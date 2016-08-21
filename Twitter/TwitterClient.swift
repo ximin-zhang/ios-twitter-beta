@@ -85,13 +85,8 @@ class TwitterClient: BDBOAuth1SessionManager {
     func currentAccount(success: (User) -> (), failure: (NSError) -> ()) {
         GET("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
 
-            //                    print("account: \(response)")
-            //                    let user = response as! NSDictionary
-            //                    print("name: \(user["name"])")
-
             let userDictionary = response as! NSDictionary
             let user = User(dictionary: userDictionary)
-
 
             success(user)
             print("name: \(user.name)")
@@ -179,22 +174,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-    // Likes the status specified in the ID parameter as the authenticating user. Returns the liked status when successful. This process invoked by this method is asynchronous. The immediately returned status may not indicate the resultant liked status of the tweet. A 200 OK response from this method will indicate whether the intended action was successful or not.
-
-//    func favorite(params: NSDictionary, completion: (response: AnyObject?, error: NSError?) -> ()){
-//
-//        POST("1.1/favorites/create.json", parameters: params, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
-//
-//            print(params)
-//            print(response)
-//
-//        }) { (task: NSURLSessionDataTask?, error: NSError) in
-//
-//            print("Error in favorite: \(error.localizedDescription)")
-//            print("Error in favorite: \(error.localizedFailureReason)")
-//            
-//        }
-//    }
 
     func favorite(params: NSDictionary, success: (NSDictionary) -> (), failure: (NSError) -> ()){
 
@@ -232,20 +211,6 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
-//    func unlike(success: (NSDictionary) -> (), failure: (NSError) -> ()){
-//
-//        GET("1.1/favorites/destroy.json", parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
-//
-//            let dictionary = response as! NSDictionary
-//            success(dictionary)
-//
-//        }) { (task: NSURLSessionDataTask?, error: NSError) in
-//
-//            print("Error in unlike a status: \(error.localizedDescription)")
-//            failure(error)
-//            
-//        }
-//    }
 
     func getFavorite(success: ([NSDictionary]) -> (), failure: (NSError) -> ()){
 

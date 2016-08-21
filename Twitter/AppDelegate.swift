@@ -15,21 +15,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let entryViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController")
+        window?.rootViewController = entryViewController
+        let hamburgerViewController = window?.rootViewController as! HamburgerViewController
+        let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+
+        menuViewController.hamburgerViewController = hamburgerViewController
+        hamburgerViewController.menuViewController = menuViewController
 
         if(User.currentUser != nil) {
-
             print("There is a current user")
+            /*
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
             let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController")
 
             window?.rootViewController = vc
-            
+             */
+
+            /*
+             let storyboard = UIStoryboard(name: "Main", bundle: nil)
+             let entryViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController")
+             window?.rootViewController = entryViewController
+             let hamburgerViewController = window?.rootViewController as! HamburgerViewController
+             let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+
+             hamburgerViewController.menuViewController = menuViewController
+             menuViewController.hamburgerViewController = hamburgerViewController
+
+             */
         } else {
-            
             print("There is no current user")
         }
 
@@ -71,7 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Called during open URL
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         print(url.description)
-
         TwitterClient.sharedInstance.handleOpenUrl(url)
 
         return true

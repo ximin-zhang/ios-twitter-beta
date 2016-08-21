@@ -34,13 +34,11 @@ class LoginViewController: UIViewController {
 
             print("I have logged in")
             self.performSegueWithIdentifier("loginSegue", sender: nil) // customized segue way
-
+            
         }) { (error: NSError) in
-
+            
             print("error: \(error.localizedDescription)")
         }
-
-        
 
     }
 
