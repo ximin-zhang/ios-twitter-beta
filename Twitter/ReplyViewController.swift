@@ -10,8 +10,6 @@ import UIKit
 
 class ReplyViewController: UIViewController, UITextFieldDelegate {
 
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
-
     var tweet: Tweet?
 
     @IBOutlet weak var replyTextField: UITextField!
@@ -19,6 +17,7 @@ class ReplyViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var charCountLabel: UILabel!
+    @IBOutlet weak var replyNavigationBar: UINavigationBar!
 
     let limitLength = 140
 
@@ -42,9 +41,7 @@ class ReplyViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-
     @IBAction func onCancel(sender: UIBarButtonItem) {
-
         self.dismissViewControllerAnimated(true) {
 
         }

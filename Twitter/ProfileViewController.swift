@@ -15,7 +15,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,8 +44,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         let cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
 
-        cell.profileImageView.setImageWithURL((user?.profileUrl)!)
-        
+        cell.profileImageView.setImageWithURL((user!.profileUrl)!)
         cell.tweetCountLabel.text = "\(user!.tweetsCnt!)"
         cell.followersCountLabel.text = "\(user!.followingCnt!)"
         cell.followingCountLabel.text = "\(user!.followingCnt!)"

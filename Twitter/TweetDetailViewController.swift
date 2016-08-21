@@ -38,6 +38,10 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     }
 
+    override func viewDidDisappear(animated: Bool) {
+        
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -61,7 +65,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.profileImageView.setImageWithURL((tweet?.user?.profileUrl)!)
             cell.tweetTextLabel.text = (tweet?.text as! String)
             cell.tweetTextLabel.sizeToFit()
-            cell.timestampLabel.text = String(tweet?.timestamp)
+            cell.timestampLabel.text = String(tweet?.timestamp!)
 
             return cell
 
@@ -139,17 +143,12 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 
             }
 
-//            let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: .Alert)
-//            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-//            self.presentViewController(alertMessage, animated: true, completion: nil)
-
             }
         )
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {
             action in
-
-            
+            // Do nothing
             }
         )
 
@@ -157,10 +156,6 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         alert.addAction(cancelAction)
 
         self.presentViewController(alert, animated: true, completion: nil)
-
-//        self.dismissViewControllerAnimated(true) {
-//            
-//        }
 
     }
 
@@ -181,21 +176,13 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 }) { (error: NSError) in
                     print(error.localizedFailureReason)
                 }
-
             } else {
-
                 TwitterClient.sharedInstance.unlike(params, success: { (dictionary: NSDictionary) in
-
                     self.favoritesCount = "\(dictionary["favorite_count"]!)"
                     self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
                     self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
-
-
-
                     }, failure: { (error: NSError) in
-
                 })
-
             }
         }
 
@@ -211,15 +198,23 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
      */
 
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-
-        let navigationController = segue.destinationViewController as! UINavigationController
-        let replyViewController = navigationController.topViewController as! ReplyViewController
-
-        replyViewController.tweet = tweet
-
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
         // A chance to set itself as the delegate for the next transition view controller
+
+        if let segueIdentifier = segue.identifier
+            where (segueIdentifier == "ReplyViewControllerSegue1" || segueIdentifier == "ReplyViewControllerSegue2") {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let replyViewController = navigationController.topViewController as! ReplyViewController
+
+            replyViewController.tweet = tweet
+        }
+        else if let segueIdentifier = segue.identifier
+            where segueIdentifier == "ProfileViewControllerSegue" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let profileViewController = navigationController.topViewController as! ProfileViewController
+            profileViewController.user = tweet!.user
+        }
 
      }
 
