@@ -106,7 +106,11 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             profileContainerViewController.previousViewController = hamburgerViewController.contentViewController
             hamburgerViewController.contentViewController = profileContainerViewController
         } else {
-            hamburgerViewController.contentViewController = viewControllers[indexPath.row + 1]
+            // Home timeline
+            if(indexPath.row == 0){
+                hamburgerViewController.contentViewController = viewControllers[indexPath.row + 1]
+            }
+            // Mentions: to implement
         }
     }
     
