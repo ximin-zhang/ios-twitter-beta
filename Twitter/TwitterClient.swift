@@ -59,6 +59,17 @@ class TwitterClient: BDBOAuth1SessionManager {
 
                 User.currentUser = user
                 self.loginSuccess?()
+
+                // Start set top view controller
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let hamburgerViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
+                let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+
+                menuViewController.hamburgerViewController = hamburgerViewController
+                hamburgerViewController.menuViewController = menuViewController
+                UIApplication.sharedApplication().keyWindow?.rootViewController = hamburgerViewController
+                // End of set top view controller
+
                 }, failure: { (error: NSError) in
                     self.loginFailure?(error)
             })
@@ -104,20 +115,12 @@ class TwitterClient: BDBOAuth1SessionManager {
     func homeTimeline(success: ([Tweet]) -> (), failure: (NSError) -> ()) {
         GET("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
 
-//            print(response)
-
             let dictionaries = response as! [NSDictionary]
-            
             let tweets = Tweet.tweetsWithArray(dictionaries)
-            
             success(tweets)
             
-            //            for tweet in tweets {
-            //                print("\(tweet.text)")
-            //            }
-            
         }) { (task: NSURLSessionDataTask?, error: NSError) in
-            //            print("error: \(error.localizedDescription)")
+            print("error: \(error.localizedDescription)")
             failure(error)
         }
     }
@@ -136,13 +139,9 @@ class TwitterClient: BDBOAuth1SessionManager {
     func retweet(params: NSDictionary, completion: (response: AnyObject?, error: NSError?) -> ()){
         
         POST("1.1/statuses/retweet/:id.json", parameters: params, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
-
             print(response)
-
         }) { (task: NSURLSessionDataTask?, error: NSError) in
-
             print("Error in retweet: \(error.localizedDescription)")
-            
         }
     }
 

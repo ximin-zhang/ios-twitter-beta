@@ -11,6 +11,8 @@ import UIKit
 class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var tableView: UITableView!
+    var previousViewController: UIViewController! // Tweets
+    var containerController: UIViewController!
 
     var tweets: [Tweet]!
     var user: [User]!
@@ -72,9 +74,23 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     }
 
-    //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    //
-    //    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            // topController should now be your topmost view controller
+
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tweetDetailContainerViewController = storyboard.instantiateViewControllerWithIdentifier("TweetDetailContainerViewController") as! TweetDetailContainerViewController
+            let tweet = tweets[indexPath.row]
+            tweetDetailContainerViewController.tweet = tweet
+            tweetDetailContainerViewController.previousViewController = previousViewController
+            let hamburgViewController = topController as! HamburgerViewController
+            hamburgViewController.contentViewController = tweetDetailContainerViewController
+        }
+        
+    }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
@@ -197,11 +213,34 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         task.resume()
     }
 
-    /*
-     MARK: - Navigation
-     
-     In a storyboard-based application, you will often want to do a little preparation before navigation
-     */
+
+    @IBAction func onTapProfileImage(sender: UITapGestureRecognizer) {
+
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let profileContainerViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileContainerViewController") as! ProfileContainerViewController
+        let profileViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+
+        let cell = sender.view?.superview?.superview as? TweetCell
+        let rowIndex = (tableView.indexPathForCell(cell!)?.row)!
+        let tweet = self.tweets![rowIndex]
+
+        profileViewController.user = tweet.user
+        profileContainerViewController.profileViewController = profileViewController
+        profileContainerViewController.previousViewController = previousViewController
+
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            // topController should now be your topmost view controller
+
+            let hamburgViewController = topController as! HamburgerViewController
+            hamburgViewController.contentViewController = profileContainerViewController
+        }
+
+    }
+
+
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         /*
          Get the new view controller using segue.destinationViewController.
@@ -216,12 +255,14 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             where segueIdentifier == "ProfileSegue" {
 
             rowIndex = (tableView.indexPathForCell(cell)?.row)!
-
             tweet = self.tweets![rowIndex]
+
+            /*
             let navigationController = segue.destinationViewController as! UINavigationController
             let profileViewController = navigationController.topViewController as! ProfileViewController
+             */
 
-            profileViewController.user = tweet.user
+            let profileViewContainerController = segue.destinationViewController as!ProfileContainerViewController
 
         }
 
@@ -236,6 +277,5 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
-
 
 }

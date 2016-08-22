@@ -42,7 +42,6 @@ class HamburgerViewController: UIViewController {
 
             contentViewController.willMoveToParentViewController(self)
             self.contentView.addSubview(contentViewController.view)
-//            self.contentView.addSubview((contentViewController.navigationController?.view)!)
             contentViewController.didMoveToParentViewController(self)
 
             UIView.animateWithDuration(0.3) { 
@@ -53,14 +52,10 @@ class HamburgerViewController: UIViewController {
     }
 
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-//        let storybaord = UIStoryboard(name: "Main", bundle: nil)
-//        let tweetsViewController = storybaord.instantiateViewControllerWithIdentifier("TweetsViewController")
-//        self.contentView.addSubview(tweetsViewController.view)
 
     }
 
@@ -90,14 +85,11 @@ class HamburgerViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        print("")
     }
-    */
 
 }

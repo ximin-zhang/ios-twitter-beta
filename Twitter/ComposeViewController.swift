@@ -9,15 +9,13 @@
 import UIKit
 
 class ComposeViewController: UIViewController, UITextFieldDelegate {
-
     @IBOutlet weak var profileImageView: UIImageView!
-
     @IBOutlet weak var composeTextField: UITextField!
-
     @IBOutlet weak var remainingCharCountLabel: UILabel!
+    var previousViewController: UIViewController!
 
     var limitLength = 140
-    var currentUser: User?
+    var currentUser: User!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,15 +25,18 @@ class ComposeViewController: UIViewController, UITextFieldDelegate {
         composeTextField.delegate = self
         composeTextField.textColor = UIColor.lightGrayColor()
 
-        TwitterClient.sharedInstance.currentAccount({ (user: User) in
+//        TwitterClient.sharedInstance.currentAccount({ (user: User) in
+//
+//            self.currentUser = user
+//            self.profileImageView.setImageWithURL(user.profileUrl!)
+//
+//
+//        }) { (error: NSError) in
+//            print("Error: \(error.localizedDescription)")
+//        }
 
-            self.currentUser = user
-            self.profileImageView.setImageWithURL(user.profileUrl!)
-
-
-        }) { (error: NSError) in
-            print("Error: \(error.localizedDescription)")
-        }
+        currentUser = User.currentUser
+        self.profileImageView.setImageWithURL(currentUser.profileUrl!)
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,11 +73,41 @@ class ComposeViewController: UIViewController, UITextFieldDelegate {
 
         }
 
-        self.dismissViewControllerAnimated(true) {
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            // topController should now be your topmost view controller
 
+            let hamburgViewController = topController as! HamburgerViewController
+            hamburgViewController.contentViewController = previousViewController
         }
 
     }
+
+
+    @IBAction func onDone(sender: UIButton) {
+        let status = (composeTextField?.text)! as String
+        let params = ["status": status]
+
+        TwitterClient.sharedInstance.tweetWithCompletion(params) { (response, error) in
+
+            print(response)
+            print(error?.localizedDescription)
+
+        }
+
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+            // topController should now be your topmost view controller
+
+            let hamburgViewController = topController as! HamburgerViewController
+            hamburgViewController.contentViewController = previousViewController
+        }
+    }
+
 
     @IBAction func onExit(sender: UIBarButtonItem) {
 
@@ -84,6 +115,11 @@ class ComposeViewController: UIViewController, UITextFieldDelegate {
         self.dismissViewControllerAnimated(true) { 
             
         }
+    }
+    
+
+    func exit(){
+        self.view.removeFromSuperview()
     }
 
 

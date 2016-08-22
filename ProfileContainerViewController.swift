@@ -1,14 +1,16 @@
 //
-//  CreateTweetViewController.swift
-//  Twitter
+//  ProfileContainerViewController.swift
+//  
 //
-//  Created by ximin_zhang on 8/17/16.
-//  Copyright © 2016 ximin_zhang. All rights reserved.
+//  Created by ximin_zhang on 8/21/16.
+//
 //
 
 import UIKit
 
-class CreateTweetViewController: UIViewController {
+class ProfileContainerViewController: UIViewController {
+
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
