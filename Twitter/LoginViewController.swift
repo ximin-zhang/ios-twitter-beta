@@ -13,6 +13,8 @@ import BDBOAuth1Manager
 class LoginViewController: UIViewController {
 
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var twitterImage: UIImageView!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,31 @@ class LoginViewController: UIViewController {
         loginButton.layer.masksToBounds = false
         loginButton.layer.shadowOpacity = 5
 
+        UIView.animateWithDuration(0.6 ,
+                                   animations: {
+                                    self.twitterImage.transform = CGAffineTransformMakeScale(0.6, 0.6)
+            },
+                                   completion: { finish in
+                                    UIView.animateWithDuration(0.6){
+                                        self.twitterImage.transform = CGAffineTransformIdentity
+                                    }
+        })
+
     }
+
+    @IBAction func onTap(sender: UITapGestureRecognizer) {
+
+        UIView.animateWithDuration(0.6 ,
+                                   animations: {
+                                    self.twitterImage.transform = CGAffineTransformMakeScale(0.6, 0.6)
+            },
+                                   completion: { finish in
+                                    UIView.animateWithDuration(0.6){
+                                        self.twitterImage.transform = CGAffineTransformIdentity
+                                    }
+        })
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -56,6 +82,8 @@ class LoginViewController: UIViewController {
             
             print("error: \(error.localizedDescription)")
         }
+
+
 
 //        let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //        let hamburgerViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController") as! HamburgerViewController
