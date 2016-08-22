@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        loginButton.layer.cornerRadius = 2
+        loginButton.layer.cornerRadius = 8
         loginButton.clipsToBounds = true
         loginButton.layer.shadowColor = UIColor.grayColor().CGColor
         loginButton.layer.shadowOffset = CGSizeMake(5,5)

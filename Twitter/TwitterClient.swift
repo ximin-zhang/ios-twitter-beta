@@ -155,7 +155,11 @@ class TwitterClient: BDBOAuth1SessionManager {
 
         let url = "1.1/statuses/retweet/\(params["id"]!).json"
         POST(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+
+            let dictionary = response as! NSDictionary
             print(response)
+            success(dictionary)
+
         }) { (task: NSURLSessionDataTask?, error: NSError) in
             print("Error in retweet: \(error.localizedDescription)")
         }
@@ -167,6 +171,10 @@ class TwitterClient: BDBOAuth1SessionManager {
         let url = "1.1/statuses/unretweet/\(params["id"]!).json"
         POST(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
             print(response)
+            let dictionary = response as! NSDictionary
+            print(response)
+            success(dictionary)
+
         }) { (task: NSURLSessionDataTask?, error: NSError) in
             print("Error in unretweet: \(error.localizedDescription)")
         }
