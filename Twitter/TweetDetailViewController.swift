@@ -194,12 +194,8 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 }
                 self.tableView.reloadData()
             }
-
-
             
             }
-
-
         )
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {
@@ -211,7 +207,9 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         alert.addAction(retweetAction)
         alert.addAction(cancelAction)
 
+        self.tableView.reloadData()
         self.presentViewController(alert, animated: true, completion: nil)
+        self.tableView.reloadData()
 
     }
 
