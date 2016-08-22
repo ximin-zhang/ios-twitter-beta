@@ -14,6 +14,8 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var retweetsCount: String?
     var favoritesCount: String?
     var favorited: Bool?
+    var previousViewController: UIViewController!
+    
 
     @IBOutlet weak var tableView: UITableView!
 
@@ -124,6 +126,20 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBAction func onTapReply(sender: UITapGestureRecognizer) {
 
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let replyContainerViewController = storyboard.instantiateViewControllerWithIdentifier("ReplyContainerViewController") as! ReplyContainerViewController
+        replyContainerViewController.previousViewController = previousViewController
+        replyContainerViewController.tweet = tweet
+
+        if var topController = UIApplication.sharedApplication().keyWindow?.rootViewController {
+            while let presentedViewController = topController.presentedViewController {
+                topController = presentedViewController
+            }
+
+            // topController should now be your topmost view controller
+            let hamburgViewController = topController as! HamburgerViewController
+            hamburgViewController.contentViewController = replyContainerViewController
+        }
     }
 
     @IBAction func onTapRetweet(sender: UITapGestureRecognizer) {
@@ -137,12 +153,9 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             let id = self.tweet?.statusid as! String
             let params = ["id": id]
             TwitterClient.sharedInstance.retweet(params) { (response, error) in
-
                 print(response)
                 print(error?.localizedDescription)
-                
             }
-
             }
         )
 

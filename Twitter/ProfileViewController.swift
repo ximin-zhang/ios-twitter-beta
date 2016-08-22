@@ -64,8 +64,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
     }
 
-    
-
     /*
     // MARK: - Navigation
 

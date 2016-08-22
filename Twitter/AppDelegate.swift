@@ -18,14 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let entryViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController")
-        window?.rootViewController = entryViewController
-        let hamburgerViewController = window?.rootViewController as! HamburgerViewController
-        let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
-
-        menuViewController.hamburgerViewController = hamburgerViewController
-        hamburgerViewController.menuViewController = menuViewController
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let entryViewController = storyboard.instantiateViewControllerWithIdentifier("HamburgerViewController")
+//        window?.rootViewController = entryViewController
+//        let hamburgerViewController = window?.rootViewController as! HamburgerViewController
+//        let menuViewController = storyboard.instantiateViewControllerWithIdentifier("MenuViewController") as! MenuViewController
+//
+//        menuViewController.hamburgerViewController = hamburgerViewController
+//        hamburgerViewController.menuViewController = menuViewController
 
         if(User.currentUser != nil) {
             print("There is a current user")
@@ -54,11 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NSNotificationCenter.defaultCenter().addObserverForName(User.userDidLogoutNotification, object: nil, queue: NSOperationQueue.mainQueue()) { (NSNotification) in
 
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
             let vc = storyboard.instantiateInitialViewController()
-
             self.window?.rootViewController = vc
-            
         }
 
         return true

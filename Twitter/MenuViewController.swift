@@ -12,10 +12,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var tableView: UITableView!
     var hamburgerViewController: HamburgerViewController!
-    private var tweetsViewController: UIViewController!
-    private var profileViewController: UIViewController!
-    private var tweetsViewNavigationController: UINavigationController!
-    private var profileViewNavigationController: UINavigationController!
+    private var tweetsContainerViewController: UIViewController!
+    private var profileContainerViewController: UIViewController!
     var viewControllers: [UIViewController] = []
     var user: User!
 
@@ -29,18 +27,15 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.estimatedRowHeight = 300
 
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        profileViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileViewController")
-        tweetsViewController = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController")
-        profileViewNavigationController = profileViewController.navigationController
-        tweetsViewNavigationController = tweetsViewController.navigationController
-        viewControllers.append(profileViewController)
-        viewControllers.append(tweetsViewController)
+        profileContainerViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileContainerViewController")
+        tweetsContainerViewController = storyboard.instantiateViewControllerWithIdentifier("TweetsContainerViewController")
+        viewControllers.append(profileContainerViewController)
+        viewControllers.append(tweetsContainerViewController)
 
-        hamburgerViewController.contentViewController = tweetsViewController
+        hamburgerViewController.contentViewController = tweetsContainerViewController
+
         user = User.currentUser
-        
         tableView.reloadData()
-
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,7 +56,6 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if(indexPath.section == 0) {
             let cell = tableView.dequeueReusableCellWithIdentifier("MenuProfileCell", forIndexPath: indexPath) as! MenuProfileCell
-
             
             if user != nil {
                 cell.profileImageView.setImageWithURL(user!.profileUrl!)
@@ -102,21 +96,23 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
         if(indexPath.section == 0) {
-            hamburgerViewController.contentViewController = viewControllers[0]
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let profileContainerViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileContainerViewController") as! ProfileContainerViewController
+            let profileViewController = storyboard.instantiateViewControllerWithIdentifier("ProfileViewController") as! ProfileViewController
+            profileViewController.user = user
+            profileContainerViewController.profileViewController = profileViewController
+            profileContainerViewController.previousViewController = hamburgerViewController.contentViewController
+            hamburgerViewController.contentViewController = profileContainerViewController
         } else {
             hamburgerViewController.contentViewController = viewControllers[indexPath.row + 1]
         }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+
     }
-    */
 
 }
