@@ -92,10 +92,14 @@
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitterlogin" translatesAutoresizingMaskIntoConstraints="NO" id="TcL-D3-iLF">
                                 <rect key="frame" x="95" y="120" width="130" height="130"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="7I6-hU-xNg"/>
                                     <constraint firstAttribute="width" constant="130" id="QYe-2j-S8T"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="GSW-Pc-mdf" appends="YES" id="GUK-aE-4YU"/>
+                                </connections>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITTER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsj-Ab-UHR">
                                 <rect key="frame" x="132" y="273" width="56" height="21"/>
@@ -129,10 +133,16 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="gqG-6b-vck" id="f2k-J2-ytN"/>
+                        <outlet property="twitterImage" destination="TcL-D3-iLF" id="dgx-cN-Gob"/>
                         <segue destination="mNm-ZT-U3i" kind="modal" identifier="loginSegue" id="a5F-Fq-hCu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="GSW-Pc-mdf">
+                    <connections>
+                        <action selector="onTap:" destination="BYZ-38-t0r" id="pr7-UB-yov"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-758" y="330"/>
         </scene>

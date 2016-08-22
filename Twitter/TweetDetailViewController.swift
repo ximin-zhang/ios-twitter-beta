@@ -155,60 +155,6 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func onTapRetweet(sender: UITapGestureRecognizer) {
-        /*
-        // create the alert
-        let alert = UIAlertController(title: "Sure?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
-
-        let retweetAction = UIAlertAction(title: "Yes", style: .Default, handler: {
-            action in
-
-            let id = self.tweet!.statusid as! String
-            let params = ["id": id]
-
-            if (self.retweeted != nil) {
-                if(self.retweeted == false) {
-                    // retweet
-                    TwitterClient.sharedInstance.retweet(params, success: { (dictionary: NSDictionary) in
-
-                        self.retweetsCount = "\(dictionary["retweet_count"]!)"
-                        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
-                        self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
-
-                        }, failure: { (error: NSError) in
-                            print(error.localizedFailureReason)
-                    })
-                } else {
-                    // Untweet
-                    TwitterClient.sharedInstance.unretweet(params, success: { (dictionary: NSDictionary) in
-
-                        self.retweetsCount = "\(dictionary["retweet_count"]!)"
-                        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
-                        self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
-
-                        }, failure: { (error: NSError) in
-                            print(error.localizedFailureReason)
-                    })
-
-                }
-            }
-            self.tableView.reloadData()
-            }
-        )
-
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {
-            action in
-            // Do nothing
-            }
-        )
-
-        alert.addAction(retweetAction)
-        alert.addAction(cancelAction)
-
-        self.tableView.reloadData()
-        self.presentViewController(alert, animated: true, completion: nil)
-        self.tableView.reloadData()
-        */
-
 
         let alert = UIAlertController(title: "Sure?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default, handler: nil))
@@ -294,13 +240,6 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.reloadData()
     }
 
-
-    /*
-     // MARK: - Navigation
-
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     */
-
      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
@@ -322,8 +261,4 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
      }
 
-
-
-
-    
 }

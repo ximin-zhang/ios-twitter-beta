@@ -43,7 +43,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("ProfileCell", forIndexPath: indexPath) as! ProfileCell
-
         cell.profileImageView.setImageWithURL((user!.profileUrl)!)
         cell.tweetCountLabel.text = "\(user!.tweetsCnt!)"
         cell.followersCountLabel.text = "\(user!.followersCnt!)"
@@ -63,6 +62,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
         }
     }
+
+    
 
     /*
     // MARK: - Navigation
