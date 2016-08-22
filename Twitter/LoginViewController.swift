@@ -12,10 +12,19 @@ import BDBOAuth1Manager
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var loginButton: UIButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        loginButton.layer.cornerRadius = 2
+        loginButton.clipsToBounds = true
+        loginButton.layer.shadowColor = UIColor.grayColor().CGColor
+        loginButton.layer.shadowOffset = CGSizeMake(5,5)
+        loginButton.layer.masksToBounds = false
+        loginButton.layer.shadowOpacity = 5
+
     }
 
     override func didReceiveMemoryWarning() {

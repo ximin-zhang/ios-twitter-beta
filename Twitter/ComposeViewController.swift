@@ -102,9 +102,9 @@ class ComposeViewController: UIViewController, UITextFieldDelegate {
                 topController = presentedViewController
             }
             // topController should now be your topmost view controller
-
+            let contentViewController = previousViewController as! TweetsContainerViewController
             let hamburgViewController = topController as! HamburgerViewController
-            hamburgViewController.contentViewController = previousViewController
+            hamburgViewController.contentViewController = contentViewController
         }
     }
 

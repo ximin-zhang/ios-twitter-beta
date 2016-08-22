@@ -46,7 +46,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
         cell.profileImageView.setImageWithURL((user!.profileUrl)!)
         cell.tweetCountLabel.text = "\(user!.tweetsCnt!)"
-        cell.followersCountLabel.text = "\(user!.followingCnt!)"
+        cell.followersCountLabel.text = "\(user!.followersCnt!)"
         cell.followingCountLabel.text = "\(user!.followingCnt!)"
         cell.profileBackgroundImageView.setImageWithURL(user!.profileBackgroundImageUrl!)
         cell.profileImageView.layer.cornerRadius = 8.0

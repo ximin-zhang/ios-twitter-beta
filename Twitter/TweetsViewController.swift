@@ -104,6 +104,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             cell.profileImage.setImageWithURL(user.profileUrl!)
         }
 
+        cell.timestampLabel.text = tweet.elapsedTimeString
+
         cell.profileImage.layer.cornerRadius = 8.0
         cell.profileImage.clipsToBounds = true
         cell.screenNameLabel.text = user.screenname as? String
@@ -111,6 +113,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         cell.tweetTextLabel.sizeToFit()
         cell.profileImage.layer.cornerRadius = 3.0
         cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.favoriteCountLabel.text = "\(tweet.favoritesCount)"
+        cell.retweetCountLabel.text = "\(tweet.retweetCount)"
 
         return cell
     }
@@ -262,7 +266,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             let profileViewController = navigationController.topViewController as! ProfileViewController
              */
 
-            let profileViewContainerController = segue.destinationViewController as!ProfileContainerViewController
+            // let profileViewContainerController = segue.destinationViewController as!ProfileContainerViewController
 
         }
 

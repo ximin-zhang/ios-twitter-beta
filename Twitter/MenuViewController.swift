@@ -59,6 +59,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if user != nil {
                 cell.profileImageView.setImageWithURL(user!.profileUrl!)
+                cell.profileImageView.layer.cornerRadius = 8.0
+                cell.profileImageView.clipsToBounds = true
                 cell.nameLabel.text = user!.name as? String
                 cell.screennameLabel.text = user!.screenname as? String
             }else {

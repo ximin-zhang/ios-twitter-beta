@@ -26,6 +26,8 @@ class ReplyViewController: UIViewController, UITextFieldDelegate {
 
         // Do any additional setup after loading the view.
         profileImageView.setImageWithURL((tweet?.user?.profileUrl)!)
+        profileImageView.layer.cornerRadius = 8.0
+        profileImageView.clipsToBounds = true
         nameLabel.text = tweet!.user?.name as? String
         screennameLabel.text = tweet!.user?.screenname! as? String
         replyTextField.delegate = self
