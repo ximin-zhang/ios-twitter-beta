@@ -76,16 +76,18 @@ class TwitterClient: BDBOAuth1SessionManager {
 
             self.loginSuccess?() // envoke
 
-            //            print("I got the access token!")
-            //            self.homeTimeline({ (tweets: [Tweet]) in
-            //                for tweet in tweets {
-            //                    print(tweet.text)
-            //                }
-            //                }, failure: { (error: NSError) in
-            //                    print("error: \(error.localizedDescription)")
-            //            })
-            //
-            //            self.currentAccount()
+            /*
+            print("I got the access token!")
+            self.homeTimeline({ (tweets: [Tweet]) in
+                for tweet in tweets {
+                    print(tweet.text)
+                }
+                }, failure: { (error: NSError) in
+                    print("error: \(error.localizedDescription)")
+            })
+
+            self.currentAccount()
+            */
 
         }) { (error: NSError!) in
             //            print(error.localizedDescription)
@@ -136,13 +138,39 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
     }
 
+    /*
     func retweet(params: NSDictionary, completion: (response: AnyObject?, error: NSError?) -> ()){
-        
-        POST("1.1/statuses/retweet/:id.json", parameters: params, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+
+        // step 3
+        let url = "1.1/statuses/retweet/\(params["id"]!).json"
+        POST(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
             print(response)
         }) { (task: NSURLSessionDataTask?, error: NSError) in
             print("Error in retweet: \(error.localizedDescription)")
         }
+    }*/
+
+
+    func retweet(params: NSDictionary, success: (NSDictionary) -> (), failure: (NSError) -> ()){
+
+        let url = "1.1/statuses/retweet/\(params["id"]!).json"
+        POST(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+            print(response)
+        }) { (task: NSURLSessionDataTask?, error: NSError) in
+            print("Error in retweet: \(error.localizedDescription)")
+        }
+
+    }
+
+    func unretweet(params: NSDictionary, success: (NSDictionary) -> (), failure: (NSError) -> ()){
+
+        let url = "1.1/statuses/unretweet/\(params["id"]!).json"
+        POST(url, parameters: nil, progress: nil, success: { (task: NSURLSessionDataTask, response: AnyObject?) in
+            print(response)
+        }) { (task: NSURLSessionDataTask?, error: NSError) in
+            print("Error in unretweet: \(error.localizedDescription)")
+        }
+
     }
 
 

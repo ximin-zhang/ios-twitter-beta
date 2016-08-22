@@ -12,7 +12,8 @@ class TweetDetailFuncCell: UITableViewCell {
 
     @IBOutlet weak var favoriteImageView: UIImageView!
     
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var retweetImageView: UIImageView!
+
 
     override func awakeFromNib() {
         super.awakeFromNib()

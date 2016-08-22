@@ -9,7 +9,6 @@
 import UIKit
 
 class Tweet: NSObject {
-
     
     var text: NSString?
     var timestamp: NSDate?
@@ -18,6 +17,7 @@ class Tweet: NSObject {
     var user: User?
     var statusid: NSString?
     var liked: Bool?
+    var elapsedTimeString: String!
 
     init(dictionary: NSDictionary) {
 
@@ -37,8 +37,24 @@ class Tweet: NSObject {
             timestamp =  formatter.dateFromString(timestampString)
             print("timestamp: \(timestamp)")
         }
-        let date = NSDate()
-        print(formatter.stringFromDate(date))
+
+        /* find out and place date format from
+         * http://userguide.icu-project.org/formatparse/datetime
+         */
+        let date = formatter.dateFromString(timestampString!)
+        let elapsedTime = NSDate().timeIntervalSinceDate(date!)
+        let sinh = Double(3600)
+        let sind = Double(3600 * 24)
+        if(elapsedTime < sinh) {
+            let m = Int(elapsedTime / 60)
+            elapsedTimeString = "\(m)m"
+        }else if(elapsedTime < Double(sind)) {
+            let h = Int(elapsedTime / sinh)
+            elapsedTimeString = "\(h)h"
+        }else {
+            let d = Int(elapsedTime / sind)
+            elapsedTimeString = "\(d)d"
+        }
 
         let _user = dictionary["user"] as! NSDictionary
         self.user = User(dictionary: _user)

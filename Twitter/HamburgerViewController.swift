@@ -56,6 +56,10 @@ class HamburgerViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        self.contentView.layer.masksToBounds = false
+        self.contentView.layer.shadowOffset = CGSizeMake(-15, 20)
+        self.contentView.layer.shadowRadius = 5
+        self.contentView.layer.shadowOpacity = 0.5;
 
     }
 

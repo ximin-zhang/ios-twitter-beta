@@ -62,6 +62,7 @@ class TweetsContainerViewController: UIViewController {
             where segue.identifier == "TweetsEmbedSegue" {
             vc.containerController = self // Pass data
             vc.previousViewController = self
+            vc.refresh()
         }
     }
 

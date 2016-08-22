@@ -14,6 +14,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var retweetsCount: String?
     var favoritesCount: String?
     var favorited: Bool?
+    var retweeted: Bool?
     var previousViewController: UIViewController!
     
 
@@ -26,7 +27,6 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
         tableView.dataSource = self
         tableView.delegate = self
-
         tableView.allowsSelection = false
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 300
@@ -67,7 +67,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
             cell.profileImageView.setImageWithURL((tweet?.user?.profileUrl)!)
             cell.tweetTextLabel.text = (tweet?.text as! String)
             cell.tweetTextLabel.sizeToFit()
-            cell.timestampLabel.text = String(tweet?.timestamp!)
+            cell.timestampLabel.text = String(tweet!.timestamp!)
 
             return cell
 
@@ -95,9 +95,12 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
             let id = "\(tweet!.statusid!)"
             let params = ["id": id]
+
             TwitterClient.sharedInstance.getTweetByID(params, success: { (dictionary: NSDictionary) in
 
                 self.favorited = dictionary["favorited"] as? Bool
+                self.retweeted = dictionary["retweeted"] as? Bool
+                self.retweetsCount = dictionary["retweet_count"] as? String
                 if((self.favorited) != nil) {
 
                     if(self.favorited == true) {
@@ -107,6 +110,16 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
                         cell.favoriteImageView.image = UIImage(named:"favorite.png")
                         cell.favoriteImageView.highlighted = false
                     }
+
+                    if(self.retweeted == true) {
+                        cell.retweetImageView.image = UIImage(named:"retweeted.png")
+                        cell.retweetImageView.highlighted = true
+                    } else {
+                        cell.retweetImageView.image = UIImage(named:"retweet.png")
+                        cell.retweetImageView.highlighted = false
+                    }
+
+
                 }
 
             }) { (error: NSError) in
@@ -145,18 +158,48 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
     @IBAction func onTapRetweet(sender: UITapGestureRecognizer) {
 
         // create the alert
-        let alert = UIAlertController(title: "CONFIMR", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+        let alert = UIAlertController(title: "Sure?", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
 
-        let retweetAction = UIAlertAction(title: "Retweet", style: .Default, handler: {
+        let retweetAction = UIAlertAction(title: "Yes", style: .Default, handler: {
             action in
 
-            let id = self.tweet?.statusid as! String
+            let id = self.tweet!.statusid as! String
             let params = ["id": id]
-            TwitterClient.sharedInstance.retweet(params) { (response, error) in
-                print(response)
-                print(error?.localizedDescription)
+
+            if (self.retweeted != nil) {
+                if(self.retweeted == false) {
+                    // retweet
+                    TwitterClient.sharedInstance.retweet(params, success: { (dictionary: NSDictionary) in
+
+                        self.retweetsCount = "\(dictionary["retweet_count"]!)"
+                        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+                        self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
+                        self.tableView.reloadData()
+
+                        }, failure: { (error: NSError) in
+                            print(error.localizedFailureReason)
+                    })
+                } else {
+                    // Untweet
+                    TwitterClient.sharedInstance.unretweet(params, success: { (dictionary: NSDictionary) in
+
+                        self.retweetsCount = "\(dictionary["retweet_count"]!)"
+                        self.tableView.reloadSections(NSIndexSet(index: 1), withRowAnimation: .None)
+                        self.tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .None)
+
+                        }, failure: { (error: NSError) in
+                            print(error.localizedFailureReason)
+                    })
+
+                }
+                self.tableView.reloadData()
             }
+
+
+            
             }
+
+
         )
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: {
@@ -174,7 +217,7 @@ class TweetDetailViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBAction func onTapFavorite(sender: UITapGestureRecognizer) {
 
-        let id = self.tweet?.statusid as! String
+        let id = self.tweet!.statusid as! String
         let params = ["id": id]
 
         if (self.favorited != nil) {
