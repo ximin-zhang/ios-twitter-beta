@@ -49,6 +49,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='http://g.recordit.co/lTJqJF0K5O.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Solarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+![](http://g.recordit.co/lTJqJF0K5O.gif)  |  ![](http://g.recordit.co/nIFqOlo8Q5.gif)
+
 GIF created with [Recordit](http://recordit.co/).
 
 ## Notes
